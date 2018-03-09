@@ -135,7 +135,7 @@ module.exports = class Reader extends Component {
     }
   }
   initiate(props = this.props) {
-    const { onError, facingMode } = props
+    const { onError, facingMode, chooseDeviceId } = props
 
     // Check browser facingMode constraint support
     // Firefox ignores facingMode or deviceId constraints
@@ -156,7 +156,7 @@ module.exports = class Reader extends Component {
     }
     const vConstraintsPromise = (supported.facingMode || isFirefox)
       ? Promise.resolve(constraints)
-      : getDeviceId(facingMode).then(deviceId => ({ deviceId }))
+      : getDeviceId(facingMode, chooseDeviceId).then(deviceId => ({ deviceId }))
 
     vConstraintsPromise
       .then(video => navigator.mediaDevices.getUserMedia({ video }))
